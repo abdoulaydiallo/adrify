@@ -14,8 +14,7 @@ import { PhoneInput } from "@/components/ui/phone-input";
 import { parsePhoneNumber, isValidPhoneNumber } from "libphonenumber-js";
 import { signIn } from "../api/auth";
 import { TriangleAlert, CheckCircle2 } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useCallback } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { setSecureCookie } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 interface SignInCardProps {
@@ -23,7 +22,6 @@ interface SignInCardProps {
 }
 
 export const SignInCard = ({ setState }: SignInCardProps) => {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const [phoneNumber, setPhoneNumber] = useState("+224");
   const [password, setPassword] = useState("");
@@ -31,8 +29,13 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
   const [success, setSuccess] = useState<string | null>(null);
 
   const mutation = useMutation({
-    mutationFn: ({ phoneNumber, password }: { phoneNumber: string; password: string }) => 
-      signIn({ phoneNumber, password }),
+    mutationFn: ({
+      phoneNumber,
+      password,
+    }: {
+      phoneNumber: string;
+      password: string;
+    }) => signIn({ phoneNumber, password }),
     onSuccess: (data) => {
       setSecureCookie("jwt", data.token, 1);
       setSecureCookie("userId", data.user._id, 1);

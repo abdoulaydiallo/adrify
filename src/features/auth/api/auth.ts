@@ -1,33 +1,5 @@
-interface SignUpData {
-  name: string;
-  phoneNumber: string;
-  password: string;
-}
-
-interface SignUpResponse {
-  user: {
-    id: string;
-    name: string;
-    phoneNumber: string;
-  };
-  token: string;
-}
-
-interface SignInData {
-  phoneNumber: string;
-  password: string;
-}
-
-interface SignInResponse {
-  user: Record<string, any>;
-  token: string;
-}
-
-interface User {
-  id: string;
-  name: string;
-  phoneNumber: string;
-    }
+let apiUrl = process.env.NEXT_PUBLIC_API_URL;
+import { SignUpData, SignUpResponse, SignInData, SignInResponse, User } from "../types";
 
 export const fetchUserById = async (userId: string, token: string): Promise<User> => {
   if (!apiUrl) {
@@ -56,7 +28,6 @@ export const fetchUserById = async (userId: string, token: string): Promise<User
   }
 };
 
-let apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const signUp = async (data: SignUpData): Promise<SignUpResponse> => {
   if (!apiUrl) {
