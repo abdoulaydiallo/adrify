@@ -7,14 +7,14 @@ import {
 import { ActionCard } from "./action-card";
 
 export const AddressActions = () => (
-  <div className="w-3/4 h-48 border border-gray-200 rounded-lg p-4">
+  <div className="w-full lg:w-3/4 h-48 border border-gray-200 rounded-lg p-4">
     <h2 className="text-md font-bold mb-2">Outils recommandés pour vous</h2>
     <div className="grid grid-cols-3 gap-2">
       <ActionCard
         title="Ajouter"
         description="Créer, enregistrer, localiser, gérer des adresses."
         color="blue"
-        action="Ajouter"
+        action="Create"
         icon={
           <MapPinArea
             size={24}
@@ -28,7 +28,7 @@ export const AddressActions = () => (
         title="Vérifier"
         description="Vérifier, confirmer, valider, garantir l'exactitude."
         color="green"
-        action="Vérifier"
+        action="verified"
         icon={
           <ShieldCheck
             size={24}

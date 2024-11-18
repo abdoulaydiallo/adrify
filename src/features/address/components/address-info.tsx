@@ -2,7 +2,14 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ClientAddress } from "@/features/address/types";
-import { MapPin, Phone, Landmark, CheckCircle, XCircle } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Landmark,
+  CheckCircle,
+  XCircle,
+  ShareIcon,
+} from "lucide-react";
 
 interface AddressInfoProps {
   address: ClientAddress;
@@ -70,8 +77,8 @@ export const AddressInfo = ({ address }: AddressInfoProps) => {
 
         {/* Image du bâtiment */}
         <div
-          className="relative mt-4 w-full bg-gray-200 rounded-lg overflow-hidden"
-          style={{ height: "318px" }}
+          className="relative mt-4 w-full bg-gray-200  overflow-hidden"
+          style={{ height: "258px" }}
         >
           <Image
             src={imageUrl}

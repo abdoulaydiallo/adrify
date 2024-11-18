@@ -1,6 +1,10 @@
 import { ReactNode } from "react";
 import { IconProps } from "@phosphor-icons/react";
 
+export interface SidebarProps {
+  mobile?: boolean;
+}
+
 export interface ContainerProps {
     children: ReactNode;
     className?: string;

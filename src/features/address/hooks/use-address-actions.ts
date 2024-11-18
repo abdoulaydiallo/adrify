@@ -4,7 +4,8 @@ import { useState } from 'react';
 import {
     AddressInput,
     ShareWithData,
-    ShareAddressResponse
+    ShareAddressResponse,
+    Address
 } from '../types';
 import {
     createAddress,
@@ -14,18 +15,36 @@ import {
 } from '../api/address';
 import { getToken } from '@/lib/utils';
 
-export function useAddressActions() {
+interface AddressActions {
+  create: (data: FormData) => Promise<any>;
+  update: (addressId: string, data: Partial<AddressInput>) => Promise<any>;
+  remove: (addressId: string) => Promise<void>;
+  share: (addressId: string, shareData: ShareWithData) => Promise<ShareAddressResponse>;
+  loading: boolean;
+  error: Error | null;
+}
+
+export const useAddressActions = (): AddressActions => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const token = getToken();
 
-  const create = async (addressData: AddressInput) => {
+  const transformAddressData = (address: any): Address => {
+    return {
+      ...address,
+      imageUrl: address.imageUrl 
+        ? `${process.env.NEXT_PUBLIC_UPLOAD_URL}/${address.imageUrl}`
+        : null
+    };
+  };
+
+  const create = async (formData: FormData) => {
     if (!token) throw new Error('Not authenticated');
     setLoading(true);
     setError(null);
     try {
-      const result = await createAddress(addressData, token);
-      return result;
+      const result = await createAddress(formData, token);
+      return transformAddressData(result);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('An unknown error occurred'));
       throw err;
@@ -78,5 +97,5 @@ export function useAddressActions() {
     }
   };
 
-  return { create, update, remove, share, loading, error };
+ return { create, update, remove, share, loading, error };
 }

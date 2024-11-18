@@ -9,7 +9,7 @@ import {
 
 import { ApiError, ConfigurationError } from '../errors';
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const apiUrl = process.env.NEXT_PUBLIC_API_CLIENT;
 
 function checkApiUrl() {
   if (!apiUrl) {
@@ -35,19 +35,33 @@ async function fetchWithAuth(url: string, options: RequestInit, token: string): 
   return response;
 };
 
-export async function createAddress(addressData: AddressInput, token: string): Promise<ClientAddress> {
-  const formData = new FormData();
-  Object.entries(addressData).forEach(([key, value]) => {
-    formData.append(key, value.toString());
+export const createAddress = async (formData: FormData, token: string): Promise<ClientAddress> => {
+  console.log('FormData content before send:');
+  for (const [key, value] of Array.from(formData.entries())) {
+    console.log(key + ': ' + value);
+  }
+
+  const response = await fetch(`${apiUrl}/addresses`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+    body: formData
   });
 
-  const response = await fetchWithAuth('/addresses', {
-    method: "POST",
-    body: formData
-  }, token);
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Error response:', errorText);
+    try {
+      const errorJson = JSON.parse(errorText);
+      throw new Error(errorJson.message || 'Failed to create address');
+    } catch {
+      throw new Error(`Failed to create address: ${response.status}`);
+    }
+  }
 
   return response.json();
-}
+};
 
 export async function getAddressById(addressId: string, token: string): Promise<ClientAddress> {
   const response = await fetchWithAuth(`/addresses/${addressId}`, { method: "GET" }, token);

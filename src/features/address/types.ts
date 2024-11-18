@@ -20,11 +20,14 @@ export interface ClientAddress {
 
 export interface AddressInput {
   placeName: string;
-  addressType: AddressType;
-  landmark?: string;
+  addressType: string;
+  landmark: string;
   phoneNumber: string;
-  coordinates: Coordinates;
-  imageFile?: File;
+  image?: File;
+  location: {
+    lat: number;
+    lng: number;
+  };
 }
 
 // Si nécessaire pour afficher l'historique côté client
@@ -62,4 +65,28 @@ export interface ShareAddressResponse {
 export interface AddressListProps {
   limit?: number;
   onAddressClick?: (address: ClientAddress) => void;
+}
+
+export type FormErrors = {
+  placeName?: string;
+  addressType?: string;
+  phoneNumber?: string;
+  location?: string;
+  landmark?: string;
+};
+
+export interface Address {
+  _id: string;
+  placeName: string;
+  addressType: string;
+  landmark: string;
+  phoneNumber: string;
+  imageUrl: string | null;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  isVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
 }

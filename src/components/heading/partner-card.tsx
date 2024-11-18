@@ -3,7 +3,7 @@ import React from "react";
 
 const PartnerCard = () => {
   return (
-    <div className="w-1/3 p-4 h-48 bg-white border border-gray-200 rounded-lg">
+    <div className="hidden lg:block w-1/3 p-4 h-48 bg-white border border-gray-200 rounded-lg">
       <h2 className="flex items-center gap-2 text-sm lg:text-md font-bold mb-2 line-clamp-1">
         <BuildingApartment
           size={32}

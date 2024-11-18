@@ -40,7 +40,7 @@ export const AddressList = ({
   return (
     <div className="md:flex md:items-center space-y-2 gap-4 mt-4">
       {addresses.map((address: ClientAddress) => (
-        <div key={address._id} className="w-full lg:w-1/3">
+        <div key={address._id} className=" w-full lg:w-1/3">
           <AddressCard
             address={address}
             onEdit={() => {}}

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Share2, CheckCircle, MapPin } from "lucide-react";
+import { Share2, CheckCircle, MapPin, XCircle } from "lucide-react";
 import { ClientAddress, AddressType } from "../types";
 import { useRouter } from "next/navigation";
 
@@ -25,7 +25,7 @@ export function AddressCard({ address, onEdit, onDelete }: AddressCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden mb-4 lg:mb-0">
       {address.imageUrl && (
         <div
           className="w-full relative"
@@ -55,7 +55,11 @@ export function AddressCard({ address, onEdit, onDelete }: AddressCardProps) {
               onClick={() => onDelete(address._id)}
               className="text-green-500 hover:text-green-700"
             >
-              <CheckCircle className="w-5 h-5" />
+              {address.isVerified ? (
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              ) : (
+                <XCircle className="w-5 h-5 bg-red-500" />
+              )}
             </button>
           </div>
         </div>

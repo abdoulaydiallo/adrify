@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import { House, Clock, ShareNetwork } from "@phosphor-icons/react";
 import SidebarSection from "./sidebar-section";
 import { SidebarItem } from "./sidebar-item";
+import { SidebarProps } from "@/types/components";
+
 import {
   CheckSquareOffset,
   MapPinArea,
@@ -11,11 +13,13 @@ import {
   Star,
 } from "@phosphor-icons/react/dist/ssr";
 
-const Sidebar = () => {
+const Sidebar = ({ mobile }: SidebarProps) => {
   const pathname = usePathname();
 
   return (
-    <div className="hidden md:block w-58 h-screen bg-white text-gray-600 p-3 space-y-4 overflow-y-auto border-gray-200">
+    <div
+      className={` w-58  bg-white text-gray-600 p-3 space-y-4 overflow-y-auto border-gray-200`}
+    >
       {/* Section Dashboard */}
       <SidebarSection title="">
         <SidebarItem
@@ -26,9 +30,9 @@ const Sidebar = () => {
         />
         <SidebarItem
           icon={Star}
-          label="Avec une étoile"
-          href="/stars"
-          isActive={pathname === "/stars"}
+          label="Nouvelle Adresse"
+          href="/addresses/create"
+          isActive={pathname === "/addresses/create"}
         />
       </SidebarSection>
 
