@@ -31,7 +31,7 @@ const MobileNav = () => (
         <Link href="/contact">Contact</Link>
       </DropdownMenuItem>
       <DropdownMenuItem>Se connecter</DropdownMenuItem>
-      <DropdownMenuItem>S'inscrire</DropdownMenuItem>
+      <DropdownMenuItem>S&apos;inscrire</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 );

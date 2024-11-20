@@ -14,7 +14,7 @@ const PartnerCard = () => {
         Ouvrez un compte partenaire
       </h2>
       <p className="text-xs text-gray-500 mb-6 line-clamp-3">
-        Intégrez le système Adrify dans votre entreprise. Profitez d'outils
+        Intégrez le système Adrify dans votre entreprise. Profitez d&apos;outils
         exclusifs pour améliorer vos services et offrir une meilleure expérience
         à vos clients.
       </p>

@@ -26,40 +26,44 @@ interface MapProps {
 
 const Map: React.FC<MapProps> = ({ center, onCenter, locate, zoom = 5 }) => {
   const [position, setPosition] = useState<L.LatLngExpression | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLocate = (e: L.LatLngExpression) => {
     const [lat, lng] = Array.isArray(e) ? e : [e.lat, e.lng];
     if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-      console.error("Invalid coordinates");
+      setError("Coordonnées invalides");
       return;
     }
-
+    setError(null);
     setPosition(e);
     onCenter(e);
   };
 
   return (
-    <MapContainer
-      className="h-[35vh] my-4 relative"
-      zoom={zoom}
-      center={center || [9.6412, -13.5784]}
-      scrollWheelZoom={true}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {center && (
-        <Marker
-          position={
-            center
-              ? (center as L.LatLngExpression)
-              : (position as L.LatLngExpression)
-          }
+    <>
+      {error && <div className="error-message">{error}</div>}
+      <MapContainer
+        className="h-[35vh] my-4 relative"
+        zoom={zoom}
+        center={center || [9.6412, -13.5784]}
+        scrollWheelZoom={true}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-      )}
-      {locate && <LocateControl onLocate={handleLocate} />}
-    </MapContainer>
+        {center && (
+          <Marker
+            position={
+              center
+                ? (center as L.LatLngExpression)
+                : (position as L.LatLngExpression)
+            }
+          />
+        )}
+        {locate && <LocateControl onLocate={handleLocate} aria-label="Localiser ma position" />}
+      </MapContainer>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { ClientAddress } from "@/features/address/types";
+import CustomImage from '@/components/custom-image';
 import {
   MapPin,
   Phone,
@@ -76,18 +76,12 @@ export const AddressInfo = ({ address }: AddressInfoProps) => {
         </div>
 
         {/* Image du bâtiment */}
-        <div
-          className="relative mt-4 w-full bg-gray-200  overflow-hidden"
-          style={{ height: "258px" }}
-        >
-          <Image
-            src={imageUrl}
-            alt="Building"
-            layout="fill"
-            objectFit="cover"
-            className="transition-transform duration-300 hover:scale-105 mb-4"
-          />
-        </div>
+        <CustomImage
+          src={imageUrl}
+          alt="Building"
+          height={258} // Hauteur fixe pour CustomImage
+          priority
+        />
       </div>
     </>
   );

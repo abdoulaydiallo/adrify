@@ -46,7 +46,8 @@ export const AddressDetails = ({ id }: { id: string }) => {
       <div className="w-full mt-2 min-h-screen bg-gray-200 overflow-hidden lg:mt-4">
         <Map
           center={[address.coordinates.latitude, address.coordinates.longitude]}
-          onCenter={() => {}}
+          onCenter={() => { }}
+          zoom={16}
         />
       </div>
     </div>

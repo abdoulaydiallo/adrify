@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Loader } from "lucide-react";
 import { useAddresses } from "@/features/address/hooks";
 import { AddressListProps, ClientAddress } from "@/features/address/types";
@@ -14,6 +14,12 @@ export const AddressList = ({
     limit,
     offset: 0,
   });
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   if (loading) {
     return <AddressCardSkeleton />;

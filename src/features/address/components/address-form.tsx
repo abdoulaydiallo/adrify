@@ -19,6 +19,8 @@ import { FormErrors } from "../types";
 import { useAddressActions } from "../hooks/use-address-actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import CustomImage from "@/components/custom-image";
 
 export const AddressForm = () => {
   const router = useRouter();
@@ -119,7 +121,7 @@ export const AddressForm = () => {
 
       await create(formData);
       toast.success("Adresse créée avec succès");
-      router.push('/addresses');
+      router.push("/addresses");
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -241,23 +243,18 @@ export const AddressForm = () => {
                 aria-label="Image de l'adresse"
               />
               {imagePreview && (
-                <div className="mt-2">
-                  <img
-                    src={imagePreview}
-                    alt="Prévisualisation"
-                    style={{
-                      width: "auto",
-                      height: "200px",
-                      borderRadius: "0.375rem",
-                    }}
-                  />
-                </div>
+                <CustomImage
+                  src={imagePreview}
+                  alt="Preview"
+                  height={180}
+                  priority
+                />
               )}
             </div>
           </div>
 
           <div>
-            <Map locate onCenter={handleCenter} />
+            <Map locate onCenter={handleCenter} zoom={16} />
             {errors.location && (
               <p className="text-red-500 text-sm mt-1">{errors.location}</p>
             )}

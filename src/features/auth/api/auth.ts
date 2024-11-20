@@ -1,4 +1,4 @@
-let apiUrl = process.env.NEXT_PUBLIC_API_CLIENT;
+let apiUrl = process.env.NEXT_PUBLIC_API_URL;
 import { SignUpData, SignUpResponse, SignInData, SignInResponse, User } from "../types";
 
 export const fetchUserById = async (userId: string, token: string): Promise<User> => {

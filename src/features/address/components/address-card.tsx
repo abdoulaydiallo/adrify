@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Share2, CheckCircle, MapPin, XCircle } from "lucide-react";
 import { ClientAddress, AddressType } from "../types";
 import { useRouter } from "next/navigation";
+import CustomImage from "@/components/custom-image";
 
 interface AddressCardProps {
   address: ClientAddress;
@@ -13,12 +14,6 @@ interface AddressCardProps {
 
 export function AddressCard({ address, onEdit, onDelete }: AddressCardProps) {
   const router = useRouter();
-
-  const addressTypeColor: Record<AddressType, string> = {
-    Résidence: "text-blue-800 border-blue-800",
-    Bureau: "text-green-800 border-green-800",
-    Magasin: "text-purple-800 border-purple-800",
-  };
 
   const handleImageClick = () => {
     router.push(`/addresses/${address._id}`);
@@ -35,9 +30,10 @@ export function AddressCard({ address, onEdit, onDelete }: AddressCardProps) {
           <Image
             src={`${address.imageUrl}`}
             alt={`Image de ${address.placeName}`}
-            layout="fill"
-            objectFit="cover"
-            className="object-cover"
+            fill
+            className="object-cover" // Conservez la classe pour le style
+            priority // Ajoutez cette ligne si l'image est importante
+            style={{ objectFit: "cover" }} // Utilisez style pour appliquer objectFit
           />
         </div>
       )}

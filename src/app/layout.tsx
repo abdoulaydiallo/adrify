@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/ui/toast";
-import { Toaster } from "@/components/ui/toaster";
 import QueryClientProviderWrapper from "@/providers/query-client-provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,12 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="fovicon.ico" sizes="any" />
+      </head>
       <body className={inter.className}>
         <QueryClientProviderWrapper>
-          <ToastProvider>
-            <Toaster />
-            {children}
-          </ToastProvider>
+          <ToastProvider>{children}</ToastProvider>
         </QueryClientProviderWrapper>
       </body>
     </html>

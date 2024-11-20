@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { ClientAddress, AddressSearchParams } from '../types';
 import { searchAddresses } from '../api/address';
 import { getToken } from '@/lib/utils';
@@ -11,6 +11,13 @@ export function useAddresses(initialParams?: AddressSearchParams) {
   const [error, setError] = useState<Error | null>(null);
   const token = getToken();
   
+  const memoizedParams = useMemo(() => initialParams || {}, [initialParams]);
+  const paramsRef = useRef(memoizedParams);
+
+  useEffect(() => {
+    paramsRef.current = memoizedParams;
+  }, [memoizedParams]);
+
   useEffect(() => {
     if (!token) {
       setError(new Error('Not authenticated'));
@@ -19,11 +26,10 @@ export function useAddresses(initialParams?: AddressSearchParams) {
     }
 
     let isMounted = true;
-      const fetchAddresses = async () => {
-          
+    const fetchAddresses = async () => {
       try {
         setLoading(true);
-        const result = await searchAddresses(initialParams || {}, token);
+        const result = await searchAddresses(paramsRef.current, token);
         if (isMounted) {
           setAddresses(result);
           setError(null);
@@ -44,7 +50,7 @@ export function useAddresses(initialParams?: AddressSearchParams) {
     return () => {
       isMounted = false;
     };
-  }, [token, JSON.stringify(initialParams)]);
+  }, [token]);
 
   return { addresses, loading, error };
 }
