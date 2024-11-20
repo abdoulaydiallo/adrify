@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, FormEvent, useCallback, useEffect } from "react";
-import Map from "@/components/map";
+import dynamic from "next/dynamic";
+const Map = dynamic(() => import("@/components/map"), { ssr: false });
 import { Container } from "@/components/container";
 import { Heading } from "@/components/heading/heading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { parsePhoneNumber, isValidPhoneNumber } from "libphonenumber-js";
+import { useState, FormEvent, useCallback, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -27,13 +28,18 @@ export const AddressForm = () => {
   const [placeName, setPlaceName] = useState("");
   const [addressType, setAddressType] = useState("");
   const [landmark, setLandmark] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("+224");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [latlng, setLatlng] = useState<L.LatLngExpression | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { create, loading } = useAddressActions();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handlePhoneChange = useCallback((value: string | undefined) => {
     if (!value) {
@@ -254,7 +260,9 @@ export const AddressForm = () => {
           </div>
 
           <div>
-            <Map locate onCenter={handleCenter} zoom={16} />
+            {isClient && (
+              <Map locate onCenter={handleCenter} zoom={16} />
+            )}
             {errors.location && (
               <p className="text-red-500 text-sm mt-1">{errors.location}</p>
             )}
