@@ -9,7 +9,7 @@ import {
 
 import { ApiError, ConfigurationError } from '../errors';
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const apiUrl = process.env.NEXT_PUBLIC_API_CLIENT;
 
 function checkApiUrl() {
   if (!apiUrl) {
