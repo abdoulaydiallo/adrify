@@ -53,8 +53,7 @@ export interface AddressSearchParams {
 }
 
 export interface ShareWithData {
-  recipientId: string;
-  type: string;
+  phoneNumber: string;
 }
 
 export interface ShareAddressResponse {

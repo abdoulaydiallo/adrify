@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Share2, CheckCircle, MapPin, XCircle } from "lucide-react";
 import { ClientAddress, AddressType } from "../types";
 import { useRouter } from "next/navigation";
-import CustomImage from "@/components/custom-image";
 
 interface AddressCardProps {
   address: ClientAddress;
@@ -18,7 +17,9 @@ export function AddressCard({ address, onEdit, onDelete }: AddressCardProps) {
   const handleImageClick = () => {
     router.push(`/addresses/${address._id}`);
   };
-
+  const handleShareAddressClick = () => {
+    router.push(`addresses/${address._id}/share`);
+  };
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden mb-4 lg:mb-0">
       {address.imageUrl && (
@@ -42,8 +43,8 @@ export function AddressCard({ address, onEdit, onDelete }: AddressCardProps) {
           <h3 className="text-sm font-semibold">{address.placeName}</h3>
           <div className="flex gap-2">
             <button
-              onClick={() => onEdit(address._id)}
-              className="text-blue-500 hover:text-blue-700"
+              onClick={handleShareAddressClick}
+              className="text-blue-500 hover:text-blue-700 cursor-pointer"
             >
               <Share2 className="w-5 h-5" />
             </button>

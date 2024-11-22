@@ -26,7 +26,7 @@ function isAuthenticated(request: NextRequest) {
   return !!token;
 }
 
-const isPublicRoute = createRouteMatcher(["/auth"]);
+const isPublicRoute = createRouteMatcher(["/auth", "/share"]);
 
 export default function middleware(request: NextRequest) {
   if (!isPublicRoute(request) && !isAuthenticated(request)) {

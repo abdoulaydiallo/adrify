@@ -44,7 +44,7 @@ export const AddressList = ({
           <AddressCard
             address={address}
             onEdit={() => {}}
-            onDelete={() => {}}
+            onDelete={() => { }}
           />
         </div>
       ))}

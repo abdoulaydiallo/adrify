@@ -29,7 +29,7 @@ function manageCacheSize() {
     }
 }
 
-async function fetchWithAuth(url: string, options: RequestInit, token: string): Promise<Response> {
+async function fetchWithAuth(url: string, options: RequestInit, token?: string): Promise<Response> {
     checkApiUrl();
     
     const now = Date.now();
@@ -143,5 +143,16 @@ export async function searchAddresses(params: AddressSearchParams, token: string
         },
     token);
     
+  return response.json();
+}
+
+export async function retrieveShareToken(tokenMapping: string) {
+  const response = await fetchWithAuth(`/tokens/${tokenMapping}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
+
   return response.json();
 }
